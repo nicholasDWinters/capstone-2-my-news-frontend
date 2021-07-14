@@ -8,10 +8,14 @@ import Home from './Home';
 import NewsArticles from './NewsArticles';
 
 function App() {
+
   return (
     <div className="App container">
       <NavBar />
       <Switch>
+        <Route exact path='/articles'><MyArticles /></Route>
+        <Route exact path='/login'><LoginForm /></Route>
+        <Route exact path='/register'><RegisterForm /></Route>
         <Route exact path='/:topic'><NewsArticles /></Route>
         <Route exact path='/'><Home /></Route>
 

@@ -38,14 +38,28 @@ class NewsApi {
 
     //get top 20 headlines from the US
     static async getTopHeadlines() {
-        let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER });
-        return res.articles;
+        try {
+            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER });
+            return res.articles;
+        } catch (err) {
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
+        }
+
     }
 
     //get 20 articles about specific topic
     static async getNews(topic) {
-        let res = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=20`, { headers: API_HEADER });
-        return res.articles;
+        try {
+            let res = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=20`, { headers: API_HEADER });
+            return res.articles;
+        } catch (err) {
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
+        }
+
     }
 
     // Saves an article to user's read list
