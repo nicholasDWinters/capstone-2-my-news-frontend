@@ -35,12 +35,12 @@ class NewsApi {
 
     // Individual API routes
 
-
     //get top 20 headlines from the US
     static async getTopHeadlines() {
         try {
             let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER });
-            return res.articles;
+
+            return res.data.articles;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
@@ -53,7 +53,7 @@ class NewsApi {
     static async getNews(topic) {
         try {
             let res = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=20`, { headers: API_HEADER });
-            return res.articles;
+            return res.data.articles;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
@@ -65,39 +65,39 @@ class NewsApi {
     // Saves an article to user's read list
     static async saveArticle(article) {
         let res = await this.request(`articles`, article, 'post');
-        return res.article;
+        return res.data.article;
     }
 
     /** Get articles for the logged in user */
     static async getArticles() {
         let res = await this.request(`articles`);
-        return res.articles;
+        return res.data.articles;
     }
 
 
     // Get info about a specific article
     static async getArticle(id) {
         let res = await this.request(`articles/${id}`);
-        return res.article;
+        return res.data.article;
     }
 
     // Deletes an article from a user's read list
     static async deleteArticle(id) {
         let res = await this.request(`articles/${id}`, 'delete');
-        return res.deleted;
+        return res.data.deleted;
     }
 
     // login to site, get token
 
     static async login(data) {
         let res = await this.request(`auth/token`, data, 'post');
-        return res.token;
+        return res.data.token;
     }
 
     //  sign up for site
     static async register(data) {
         let res = await this.request(`auth/register`, data, 'post');
-        return res.token;
+        return res.data.token;
     }
 
 }

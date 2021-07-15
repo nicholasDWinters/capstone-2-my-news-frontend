@@ -11,6 +11,7 @@ export function getTopHeadlinesFromAPI() {
     return async function (dispatch) {
         try {
             let res = await NewsApi.getTopHeadlines();
+
             return dispatch(gotTopHeadlines(res));
         } catch (e) {
             console.log(e);

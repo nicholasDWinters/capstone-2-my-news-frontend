@@ -8,7 +8,7 @@ const INITIAL_STATE = { topHeadlines: [], topicArticles: [], savedArticles: [], 
 function articleReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case GET_TOP_HEADLINES:
-            return { ...state, topHeadlines: [...action.articles] };
+            return { ...state, topHeadlines: action.articles };
         case GET_TOPIC_ARTICLES:
             return { ...state, topicArticles: [...action.articles] };
         case SAVE_ARTICLE:

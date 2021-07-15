@@ -5,10 +5,10 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
-    NavItem
+    NavItem,
 } from 'reactstrap';
+import SearchForm from './forms/SearchForm';
 
 
 const NavBar = () => {
@@ -18,13 +18,17 @@ const NavBar = () => {
 
     return (
         <div>
-            <Navbar color="light" light expand="md">
-                <NavbarBrand className='ml-3 Navbar-brand' href="/"><NavLink exact to='/'>home</NavLink></NavbarBrand>
+
+            <Navbar fixed='top' color="light" light expand="md" className=''>
+                <Nav navbar>
+
+                    <NavItem><NavLink className='mx-3' id='brand' exact to="/">home</NavLink></NavItem>
+                </Nav>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mx-auto" navbar>
                         <NavItem>
-                            <NavLink className={isOpen ? 'mx-3' : 'ml-5 mx-3'} exact to='/business'>business</NavLink>
+                            <NavLink className='mx-3' exact to='/business'>business</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink className='mx-3' exact to='/tech'>tech</NavLink>
@@ -41,15 +45,19 @@ const NavBar = () => {
 
                     </Nav>
                     <Nav navbar>
-                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/login">Login</NavLink></NavItem>}
-                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/register">Register</NavLink></NavItem>}
+                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/login">login</NavLink></NavItem>}
+                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/register">register</NavLink></NavItem>}
 
-                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/articles">My Articles</NavLink></NavItem> : ''}
-                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/logout">Logout</NavLink></NavItem> : ''}
+                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/articles">my articles</NavLink></NavItem> : ''}
+                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/logout">logout</NavLink></NavItem> : ''}
                     </Nav>
 
                 </Collapse>
             </Navbar>
+            <SearchForm />
+
+
+
         </div>
     );
 }
