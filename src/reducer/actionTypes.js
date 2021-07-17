@@ -7,3 +7,5 @@ export const SAVE_ARTICLE = 'SAVE_ARTICLE';
 export const LOAD_SAVED_ARTICLES = 'LOAD_SAVED_ARTICLES';
 export const LOAD_ARTICLE_DETAILS = 'LOAD_ARTICLE';
 export const REMOVE_ARTICLE = 'REMOVE_ARTICLE';
+export const ADD_ALERT = 'ADD_ALERT';
+export const CLEAR_ALERT = 'CLEAR_ALERT';

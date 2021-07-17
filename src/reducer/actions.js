@@ -1,6 +1,6 @@
 import {
     LOGIN, REGISTER, GET_TOPIC_ARTICLES, GET_TOP_HEADLINES, SAVE_ARTICLE, LOAD_ARTICLE_DETAILS,
-    LOAD_SAVED_ARTICLES, REMOVE_ARTICLE, SET_USER
+    LOAD_SAVED_ARTICLES, REMOVE_ARTICLE, SET_USER, ADD_ALERT, CLEAR_ALERT
 } from "./actionTypes";
 
 import NewsApi from "../api/api";
@@ -165,5 +165,20 @@ export function setUser(data) {
     return {
         type: SET_USER,
         data
+    }
+}
+
+// actions for setting alerts - used for errors, login, logout, etc
+export function addAlert(alert) {
+    return {
+        type: ADD_ALERT,
+        alert
+    }
+}
+
+export function clearAlert() {
+    return {
+        type: CLEAR_ALERT
+
     }
 }

@@ -10,7 +10,7 @@ function articleReducer(state = INITIAL_STATE, action) {
         case GET_TOP_HEADLINES:
             return { ...state, topHeadlines: action.articles };
         case GET_TOPIC_ARTICLES:
-            return { ...state, topicArticles: [...action.articles] };
+            return { ...state, topicArticles: action.articles };
         case SAVE_ARTICLE:
             return { ...state, savedArticles: [...state.savedArticles, action.article] };
         case LOAD_SAVED_ARTICLES:
