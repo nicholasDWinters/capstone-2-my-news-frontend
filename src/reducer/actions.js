@@ -15,6 +15,7 @@ export function getTopHeadlinesFromAPI() {
             return dispatch(gotTopHeadlines(res));
         } catch (e) {
             console.log(e);
+            // return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -33,6 +34,7 @@ export function getTopicArticlesFromAPI(topic) {
             return dispatch(gotTopicArticles(res));
         } catch (e) {
             console.log(e);
+            // return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -55,6 +57,7 @@ export function saveArticleToState(article) {
             return dispatch(savedArticle(res));
         } catch (e) {
             console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }))
         }
     }
 }
@@ -73,6 +76,7 @@ export function getSavedArticles() {
             return dispatch(gotSavedArticles(res));
         } catch (e) {
             console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -91,6 +95,7 @@ export function getArticle(id) {
             return dispatch(gotArticle(res));
         } catch (e) {
             console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -109,6 +114,7 @@ export function removeArticle(id) {
             return dispatch(gotRemovedArticle(res));
         } catch (e) {
             console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -140,6 +146,18 @@ function loggedInUser(token) {
     return {
         type: LOGIN,
         token
+    }
+}
+
+export function isLoggedIn(data) {
+    return async function (dispatch) {
+        try {
+            dispatch(addAlert({ "message": `welcome back!`, "color": "info" }))
+            return dispatch(loggedInUser(data));
+        } catch (e) {
+            console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
+        }
     }
 }
 

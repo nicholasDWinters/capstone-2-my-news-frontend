@@ -1,11 +1,32 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
     Card, CardText, CardBody, CardLink,
     CardTitle, CardSubtitle
 } from 'reactstrap';
 import './ArticleCard.css';
+import { saveArticleToState } from '../reducer/actions';
 
 const ArticleCard = ({ source, author, title, description, url, imageUrl, date, content }) => {
+    const dispatch = useDispatch();
+
+
+    let article = {
+        "username": localStorage.getItem('user'),
+        "source": source,
+        "date": date,
+        "author": author,
+        "title": title,
+        "description": description,
+        "url": url,
+        "image_url": imageUrl,
+        "content": content
+    }
+    async function addToReadList(article) {
+        console.log('adding');
+        let res = await dispatch(saveArticleToState(article));
+        console.log(res);
+    }
 
     return (
         <div className='ArticleCard'>
@@ -29,7 +50,7 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
 
 
                     <CardLink className='btn btn-info mx-3 mt-4' href={url} target='_blank'>Go To Article</CardLink>
-                    {localStorage.token ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => console.log('clicked')}>Add to Read List</CardLink> : ''}
+                    {localStorage.token ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => addToReadList(article)}>Add to Read List</CardLink> : ''}
 
                 </CardBody>
             </Card>

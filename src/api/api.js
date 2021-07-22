@@ -67,7 +67,8 @@ class NewsApi {
     // Saves an article to user's read list
     static async saveArticle(article) {
         let res = await this.request(`articles`, article, 'post');
-        return res.data.article;
+        console.log(res);
+        return res.article;
     }
 
     /** Get articles for the logged in user */
@@ -80,6 +81,7 @@ class NewsApi {
     // Get info about a specific article
     static async getArticle(id) {
         let res = await this.request(`articles/${id}`);
+        console.log(res);
         return res.data.article;
     }
 

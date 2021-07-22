@@ -22,7 +22,7 @@ const RegisterForm = () => {
             let user = { "username": data.username };
             if (res.type !== 'ADD_ALERT') {
                 dispatch(setUser(user));
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('user', user.username);
                 history.push('/');
             }
 

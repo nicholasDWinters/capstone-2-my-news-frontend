@@ -23,7 +23,7 @@ const LoginForm = () => {
             console.log(res);
             if (res.type !== 'ADD_ALERT') {
                 dispatch(setUser(user));
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('user', user.username);
                 history.push('/');
             }
 
