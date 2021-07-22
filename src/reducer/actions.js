@@ -1,5 +1,5 @@
 import {
-    LOGIN, REGISTER, GET_TOPIC_ARTICLES, GET_TOP_HEADLINES, SAVE_ARTICLE, LOAD_ARTICLE_DETAILS,
+    LOGIN, REGISTER, LOGOUT, GET_TOPIC_ARTICLES, GET_TOP_HEADLINES, SAVE_ARTICLE, LOAD_ARTICLE_DETAILS,
     LOAD_SAVED_ARTICLES, REMOVE_ARTICLE, SET_USER, ADD_ALERT, CLEAR_ALERT
 } from "./actionTypes";
 
@@ -127,9 +127,11 @@ export function loginUser(data) {
     return async function (dispatch) {
         try {
             let res = await NewsApi.login(data);
+            dispatch(addAlert({ "message": `welcome back!`, "color": "info" }))
             return dispatch(loggedInUser(res));
         } catch (e) {
             console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -145,9 +147,10 @@ export function registerUser(data) {
     return async function (dispatch) {
         try {
             let res = await NewsApi.register(data);
+            dispatch(addAlert({ "message": `thank you for registering!`, "color": "info" }))
             return dispatch(registeredUser(res));
         } catch (e) {
-            console.log(e);
+            return dispatch(addAlert({ "message": e, "color": "danger" }));
         }
     }
 }
@@ -156,6 +159,12 @@ function registeredUser(token) {
     return {
         type: REGISTER,
         token
+    }
+}
+
+export function logout() {
+    return {
+        type: LOGOUT
     }
 }
 

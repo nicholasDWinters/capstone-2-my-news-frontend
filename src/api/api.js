@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import API_KEY from "./secret";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
@@ -29,6 +30,7 @@ class NewsApi {
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
+            // localStorage.setItem('message', JSON.stringify(message))
             throw Array.isArray(message) ? message : [message];
         }
     }
@@ -52,7 +54,7 @@ class NewsApi {
     //get 20 articles about specific topic
     static async getNews(topic) {
         try {
-            let res = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=20`, { headers: API_HEADER });
+            let res = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&pageSize=20&sortBy=relevancy`, { headers: API_HEADER });
             return res.data.articles;
         } catch (err) {
             console.error("API Error:", err.response);
@@ -91,13 +93,14 @@ class NewsApi {
 
     static async login(data) {
         let res = await this.request(`auth/token`, data, 'post');
-        return res.data.token;
+        return res.token;
     }
 
     //  sign up for site
     static async register(data) {
         let res = await this.request(`auth/register`, data, 'post');
-        return res.data.token;
+        console.log(res);
+        return res.token;
     }
 
 }

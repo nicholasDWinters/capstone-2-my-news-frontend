@@ -16,7 +16,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1 className='display-4'>top headlines</h1>
+            <h1 className='display-4 mt-3'>top headlines</h1>
             <ArticlesList articles={headlines} />
         </div>
     )

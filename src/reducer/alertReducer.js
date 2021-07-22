@@ -7,7 +7,7 @@ const INITIAL_STATE = { alert: {} };
 function alertReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case ADD_ALERT:
-            return { alert: action.alert };
+            return { ...state, alert: { ...action.alert } };
         case CLEAR_ALERT:
             return { alert: {} };
         default:

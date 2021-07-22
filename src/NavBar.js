@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import './NavBar.css';
 import {
     Collapse,
@@ -9,10 +9,23 @@ import {
     NavItem,
 } from 'reactstrap';
 import SearchForm from './forms/SearchForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAlert, logout } from './reducer/actions';
 
 
 const NavBar = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const token = useSelector(st => st.userReducer.token);
+
     const [isOpen, setIsOpen] = useState(false);
+
+    function logoutUser() {
+        dispatch(logout());
+        dispatch(addAlert({ "message": 'logged out...', "color": "info" }));
+        localStorage.clear();
+        history.push('/');
+    }
 
     const toggle = () => setIsOpen(!isOpen);
 
@@ -45,11 +58,11 @@ const NavBar = () => {
 
                     </Nav>
                     <Nav navbar>
-                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/login">login</NavLink></NavItem>}
-                        {localStorage.token ? '' : <NavItem><NavLink className='mx-3' exact to="/register">register</NavLink></NavItem>}
+                        {token ? '' : <NavItem><NavLink className='mx-3' exact to="/login">login</NavLink></NavItem>}
+                        {token ? '' : <NavItem><NavLink className='mx-3' exact to="/register">register</NavLink></NavItem>}
 
-                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/articles">my articles</NavLink></NavItem> : ''}
-                        {localStorage.token ? <NavItem><NavLink className='mx-3' exact to="/logout">logout</NavLink></NavItem> : ''}
+                        {token ? <NavItem><NavLink className='mx-3' exact to="/articles">my articles</NavLink></NavItem> : ''}
+                        {token ? <NavItem><NavLink className='mx-3' exact to="/logout" onClick={() => logoutUser()}>logout</NavLink></NavItem> : ''}
                     </Nav>
 
                 </Collapse>
