@@ -10,7 +10,7 @@ import RegisterForm from './forms/RegisterForm';
 import MyArticles from './articles/MyArticles';
 import AlertComponent from './Alert';
 import NewsApi from './api/api';
-import { isLoggedIn, setUser } from './reducer/actions';
+import { isLoggedIn, setUser, getSavedArticles } from './reducer/actions';
 
 
 
@@ -19,27 +19,39 @@ function App() {
   const alert = useSelector(st => st.alertReducer.alert);
   const dispatch = useDispatch();
 
+
   useEffect(function () {
     async function checkToken() {
       if (localStorage.getItem('token')) {
         await dispatch(isLoggedIn(localStorage.getItem('token')));
-        NewsApi.token = token;
       }
       if (localStorage.getItem('user')) {
-        console.log(localStorage.getItem('user'))
+
         await dispatch(setUser(localStorage.getItem('user')));
 
       }
 
     }
+
     checkToken();
-  }, []);
+  }, [dispatch]);
+
   useEffect(function () {
     if (token) {
       localStorage.setItem('token', token);
+      NewsApi.token = token;
 
+      getUserArticles();
     }
-  }, [token]);
+    async function getUserArticles() {
+      let res = await dispatch(getSavedArticles());
+      console.log(res);
+    }
+  }, [token, dispatch]);
+
+  useEffect(() => {
+
+  }, [dispatch]);
 
 
 

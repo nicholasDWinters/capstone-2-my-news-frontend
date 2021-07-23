@@ -14,7 +14,7 @@ function articleReducer(state = INITIAL_STATE, action) {
         case SAVE_ARTICLE:
             return { ...state, savedArticles: [...state.savedArticles, action.article] };
         case LOAD_SAVED_ARTICLES:
-            return { ...state, savedArticles: [...action.articles] };
+            return { ...state, savedArticles: action.articles };
         case LOAD_ARTICLE_DETAILS:
             return { ...state, articleDetails: { ...action.article } };
         case REMOVE_ARTICLE:

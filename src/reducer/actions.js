@@ -54,6 +54,7 @@ export function saveArticleToState(article) {
     return async function (dispatch) {
         try {
             let res = await NewsApi.saveArticle(article);
+            dispatch(addAlert({ "message": "successfully saved", "color": "info" }));
             return dispatch(savedArticle(res));
         } catch (e) {
             console.log(e);
@@ -73,6 +74,7 @@ export function getSavedArticles() {
     return async function (dispatch) {
         try {
             let res = await NewsApi.getArticles();
+            console.log(res);
             return dispatch(gotSavedArticles(res));
         } catch (e) {
             console.log(e);
@@ -111,6 +113,7 @@ export function removeArticle(id) {
     return async function (dispatch) {
         try {
             let res = await NewsApi.deleteArticle(id);
+            dispatch(addAlert({ "message": "successfully deleted", "color": "info" }));
             return dispatch(gotRemovedArticle(res));
         } catch (e) {
             console.log(e);

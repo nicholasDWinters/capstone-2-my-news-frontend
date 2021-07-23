@@ -1,32 +1,64 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Card, CardText, CardBody, CardLink,
     CardTitle, CardSubtitle
 } from 'reactstrap';
 import './ArticleCard.css';
-import { saveArticleToState } from '../reducer/actions';
+import { getSavedArticles, removeArticle, saveArticleToState } from '../reducer/actions';
 
-const ArticleCard = ({ source, author, title, description, url, imageUrl, date, content }) => {
+const ArticleCard = ({ source, author, title, description, url, imageUrl, date, content, id }) => {
     const dispatch = useDispatch();
+    const savedArticles = useSelector(st => st.articleReducer.savedArticles);
 
+    let [isSaved, setIsSaved] = useState(false);
+
+    useEffect(() => {
+        console.log('render');
+        for (let article of savedArticles) {
+            if (article.url === url) {
+                setIsSaved(true);
+            }
+        }
+    }, [savedArticles, url]);
 
     let article = {
         "username": localStorage.getItem('user'),
-        "source": source,
-        "date": date,
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "image_url": imageUrl,
-        "content": content
+        "source": source || '',
+        "date": date || '',
+        "author": author || '',
+        "title": title || '',
+        "description": description || '',
+        "url": url || '',
+        "image_url": imageUrl || '',
+        "content": content || ''
     }
     async function addToReadList(article) {
         console.log('adding');
         let res = await dispatch(saveArticleToState(article));
         console.log(res);
     }
+
+    async function removeFromReadList(id, url) {
+        setIsSaved(!isSaved)
+        if (id === null) {
+            function getId(url) {
+                for (let article of savedArticles) {
+                    if (article.url === url) {
+                        return article.id;
+                    }
+                }
+            }
+            let newId = getId(url);
+            await dispatch(removeArticle(parseInt(newId)));
+        } else {
+            await dispatch(removeArticle(id));
+
+        }
+        await dispatch(getSavedArticles());
+
+    }
+
 
     return (
         <div className='ArticleCard'>
@@ -50,12 +82,14 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
 
 
                     <CardLink className='btn btn-info mx-3 mt-4' href={url} target='_blank'>Go To Article</CardLink>
-                    {localStorage.token ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => addToReadList(article)}>Add to Read List</CardLink> : ''}
+                    {localStorage.token && (!isSaved) ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => addToReadList(article)}>Add to Read List</CardLink> : ''}
+                    {localStorage.token && isSaved ? <CardLink className='btn btn-danger mx-3 mt-4' onClick={() => removeFromReadList(id || null, url)}>Remove From Read List</CardLink> : ''}
 
                 </CardBody>
             </Card>
 
         </div>
+
     )
 }
 

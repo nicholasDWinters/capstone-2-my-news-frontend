@@ -30,7 +30,6 @@ class NewsApi {
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
-            // localStorage.setItem('message', JSON.stringify(message))
             throw Array.isArray(message) ? message : [message];
         }
     }
@@ -67,14 +66,14 @@ class NewsApi {
     // Saves an article to user's read list
     static async saveArticle(article) {
         let res = await this.request(`articles`, article, 'post');
-        console.log(res);
         return res.article;
     }
 
     /** Get articles for the logged in user */
     static async getArticles() {
         let res = await this.request(`articles`);
-        return res.data.articles;
+
+        return res.user.articles;
     }
 
 
@@ -82,13 +81,15 @@ class NewsApi {
     static async getArticle(id) {
         let res = await this.request(`articles/${id}`);
         console.log(res);
-        return res.data.article;
+        return res.article;
     }
 
     // Deletes an article from a user's read list
     static async deleteArticle(id) {
-        let res = await this.request(`articles/${id}`, 'delete');
-        return res.data.deleted;
+        console.log('deleting!');
+        let res = await this.request(`articles/${id}`, id, 'delete');
+        console.log(res);
+        return res.deleted;
     }
 
     // login to site, get token
