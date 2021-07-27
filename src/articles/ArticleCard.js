@@ -14,7 +14,7 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
     let [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
-        console.log('render');
+
         for (let article of savedArticles) {
             if (article.url === url) {
                 setIsSaved(true);
@@ -40,7 +40,6 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
     }
 
     async function removeFromReadList(id, url) {
-        setIsSaved(!isSaved)
         if (id === null) {
             function getId(url) {
                 for (let article of savedArticles) {
@@ -56,6 +55,7 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
 
         }
         await dispatch(getSavedArticles());
+        setIsSaved(!isSaved);
 
     }
 
@@ -81,9 +81,9 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
                     </div>
 
 
-                    <CardLink className='btn btn-info mx-3 mt-4' href={url} target='_blank'>Go To Article</CardLink>
-                    {localStorage.token && (!isSaved) ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => addToReadList(article)}>Add to Read List</CardLink> : ''}
-                    {localStorage.token && isSaved ? <CardLink className='btn btn-danger mx-3 mt-4' onClick={() => removeFromReadList(id || null, url)}>Remove From Read List</CardLink> : ''}
+                    <CardLink className='btn btn-info mx-3 mt-4' href={url} target='_blank'>go to article</CardLink>
+                    {localStorage.token && (!isSaved) ? <CardLink className='btn btn-secondary mx-3 mt-4' onClick={() => addToReadList(article)}>add to read list</CardLink> : ''}
+                    {localStorage.token && isSaved ? <CardLink className='btn btn-danger mx-3 mt-4' onClick={() => removeFromReadList(id || null, url)}>remove from read list</CardLink> : ''}
 
                 </CardBody>
             </Card>
