@@ -8,6 +8,7 @@ const AlertComponent = () => {
     const alert = useSelector(st => st.alertReducer.alert);
     const dispatch = useDispatch();
 
+    /* checks state to see if alert message, if there is, makes alert visible */
     useEffect(function () {
         if (alert.message) {
             setVisible(true);
@@ -16,7 +17,6 @@ const AlertComponent = () => {
 
     function onDismiss() {
         setVisible(false);
-        localStorage.removeItem('message');
         dispatch(clearAlert());
     }
 

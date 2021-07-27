@@ -13,6 +13,7 @@ const MyArticles = () => {
         if (!localStorage.token) {
             history.push('/');
         }
+
         async function getArticles() {
             await dispatch(getSavedArticles());
         }

@@ -11,6 +11,7 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
     const dispatch = useDispatch();
     const savedArticles = useSelector(st => st.articleReducer.savedArticles);
 
+    // isSaved state is used to determine whether card should display a remove button, or an add button
     let [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
@@ -33,13 +34,17 @@ const ArticleCard = ({ source, author, title, description, url, imageUrl, date, 
         "image_url": imageUrl || '',
         "content": content || ''
     }
+
+
     async function addToReadList(article) {
-        console.log('adding');
         let res = await dispatch(saveArticleToState(article));
         console.log(res);
     }
 
+    /* an article only contains an id if it is already in a user's read list.
+    This function will either use the id, or the url of the article to remove the article from saved articles */
     async function removeFromReadList(id, url) {
+
         if (id === null) {
             function getId(url) {
                 for (let article of savedArticles) {

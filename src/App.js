@@ -19,7 +19,7 @@ function App() {
   const alert = useSelector(st => st.alertReducer.alert);
   const dispatch = useDispatch();
 
-
+  /* check local storage for a token, updates token and user in state */
   useEffect(function () {
     async function checkToken() {
       if (localStorage.getItem('token')) {
@@ -36,6 +36,8 @@ function App() {
     checkToken();
   }, [dispatch]);
 
+  /* checks for token in state, updates the token in the news api, to authenticate requests, 
+  gets saved articles to update article buttons as well */
   useEffect(function () {
     if (token) {
       localStorage.setItem('token', token);
@@ -48,11 +50,6 @@ function App() {
       console.log(res);
     }
   }, [token, dispatch]);
-
-  useEffect(() => {
-
-  }, [dispatch]);
-
 
 
   return (

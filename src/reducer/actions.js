@@ -74,7 +74,7 @@ export function getSavedArticles() {
     return async function (dispatch) {
         try {
             let res = await NewsApi.getArticles();
-            console.log(res);
+
             return dispatch(gotSavedArticles(res));
         } catch (e) {
             console.log(e);

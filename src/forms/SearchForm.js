@@ -17,6 +17,8 @@ const SearchForm = () => {
         }))
     }
 
+    /* can just push the new topic to history, as that route utilizes 
+    useParams to check the topic, and display correct articles */
     const handleSubmit = evt => {
         evt.preventDefault();
         history.push(`/${data.topic}`);

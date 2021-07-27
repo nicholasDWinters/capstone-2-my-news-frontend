@@ -20,6 +20,8 @@ const RegisterForm = () => {
         try {
             let res = await dispatch(registerUser(data));
             let user = { "username": data.username };
+
+            // if type is ADD_ALERT, it did not work so it shouldnt do the rest of the function
             if (res.type !== 'ADD_ALERT') {
                 dispatch(setUser(user));
                 localStorage.setItem('user', user.username);
