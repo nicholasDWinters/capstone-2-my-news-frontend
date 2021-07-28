@@ -80,7 +80,7 @@ class NewsApi {
     // Get info about a specific article
     static async getArticle(id) {
         let res = await this.request(`articles/${id}`);
-        console.log(res);
+
         return res.article;
     }
 
@@ -88,7 +88,7 @@ class NewsApi {
     static async deleteArticle(id) {
         console.log('deleting!');
         let res = await this.request(`articles/${id}`, id, 'delete');
-        console.log(res);
+
         return res.deleted;
     }
 
@@ -102,7 +102,6 @@ class NewsApi {
     //  sign up for site
     static async register(data) {
         let res = await this.request(`auth/register`, data, 'post');
-        console.log(res);
         return res.token;
     }
 
