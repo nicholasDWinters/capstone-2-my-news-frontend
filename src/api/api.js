@@ -39,7 +39,7 @@ class NewsApi {
     //get top 20 headlines from the US
     static async getTopHeadlines() {
         try {
-            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: { API_HEADER, "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS" } });
+            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: { 'X-Api-Key': `${API_KEY}`, "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS" } });
             console.log(res);
             return res.data.articles;
         } catch (err) {
