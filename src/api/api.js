@@ -39,7 +39,7 @@ class NewsApi {
     //get top 20 headlines from the US
     static async getTopHeadlines() {
         try {
-            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER });
+            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER, status: 200 });
 
             return res.data.articles;
         } catch (err) {
@@ -86,7 +86,7 @@ class NewsApi {
 
     // Deletes an article from a user's read list
     static async deleteArticle(id) {
-        console.log('deleting!');
+
         let res = await this.request(`articles/${id}`, id, 'delete');
 
         return res.deleted;
