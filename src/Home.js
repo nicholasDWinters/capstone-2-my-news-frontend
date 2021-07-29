@@ -9,10 +9,14 @@ const Home = () => {
 
     useEffect(function () {
         async function getHeadlines() {
+
             await dispatch(getTopHeadlinesFromAPI());
         }
-        getHeadlines();
-    }, [dispatch]);
+        if (headlines.length < 1) {
+
+            getHeadlines();
+        }
+    }, [dispatch, headlines]);
 
     return (
         <div>
