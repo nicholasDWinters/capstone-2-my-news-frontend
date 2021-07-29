@@ -1,7 +1,7 @@
 import axios from "axios";
 import API_KEY from './secret';
 const NewsAPI = require('newsapi');
-const newsAPI = new NewsAPI(API_KEY, { corsProxyUrl: 'https://cors-anywhere.herokuapp.com/' });
+const newsAPI = new NewsAPI(API_KEY, { corsProxyUrl: 'https://thingproxy.freeboard.io/fetch/' });
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
