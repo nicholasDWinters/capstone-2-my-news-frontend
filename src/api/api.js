@@ -44,11 +44,11 @@ class NewsApi {
             // console.log(res);
             // return res.data.articles;
 
-            // let res = await this.request('headlines');
-            // return res.data.articles;
+            let res = await this.request('headlines');
+            return res.data.articles;
 
-            let res = await newsAPI.v2.topHeadlines({ pageSize: 20, country: 'us' });
-            return res.articles;
+            // let res = await newsAPI.v2.topHeadlines({ pageSize: 20, country: 'us' });
+            // return res.articles;
 
 
         } catch (err) {
