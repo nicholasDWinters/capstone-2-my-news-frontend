@@ -1,7 +1,7 @@
 import axios from "axios";
-// import API_KEY from './secret';
-// const NewsAPI = require('newsapi');
-// const newsAPI = new NewsAPI(API_KEY, { corsProxyUrl: 'https://thingproxy.freeboard.io/fetch/' });
+import API_KEY from './secret';
+const NewsAPI = require('newsapi');
+const newsAPI = new NewsAPI(API_KEY, { corsProxyUrl: 'https://thingproxy.freeboard.io/fetch/' });
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -43,11 +43,12 @@ class NewsApi {
             // let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=20`, { headers: API_HEADER });
             // console.log(res);
             // return res.data.articles;
-            let res = await this.request('headlines');
 
-            return res.data.articles;
-            // let res = await newsAPI.v2.topHeadlines({ pageSize: 20, country: 'us' });
-            // return res.articles;
+            // let res = await this.request('headlines');
+            // return res.data.articles;
+
+            let res = await newsAPI.v2.topHeadlines({ pageSize: 20, country: 'us' });
+            return res.articles;
 
 
         } catch (err) {
